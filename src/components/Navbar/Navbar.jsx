@@ -10,16 +10,34 @@ function Navbar() {
             <ul className="nav-bar-items">
                 <p>LOGO</p>
                 <Link to="/">
-                  <li>Inicio</li>
+                  <li><strong>Inico</strong></li>
                 </Link>
-                <Link to="/categoria/SmartTV">
-                  <li>SmartTV</li>
-                </Link>
-                <Link to="/categoria/Smartphone">
-                  <li>Smartphone</li>
-                </Link>
+
                 <CartWidget />
             </ul>
+        </nav>
+        <nav className="navbar-cat">
+          <ul>
+            <p><strong>Categorias</strong></p>
+            <Link to="/categoria/SmartTV">
+              <li>SmartTV</li>
+            </Link>
+            <Link to="/categoria/Smartphone">
+              <li>Smartphone</li>
+            </Link>
+            <Link to="/categoria/Laptop">
+              <li>Laptop</li>
+            </Link>
+            <Link to="/categoria/Auriculares">
+              <li>Auriculares</li>
+            </Link>
+            <Link to="/categoria/Tablet">
+              <li>Tablet</li>
+            </Link>
+            <Link to="/categoria/Split">
+              <li>Split</li>
+            </Link>
+          </ul>
         </nav>
     </header>
   );

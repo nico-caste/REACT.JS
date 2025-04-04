@@ -16,7 +16,6 @@ function ItemListContainer () {
             fetchdata(false)
             .then(resp => {
                 SetTodosLosProductos (resp);
-                console.log(categoria);
                 setTimeout(() => {
                     setLoading(false);
                 }, 500);
@@ -45,7 +44,7 @@ function ItemListContainer () {
                         <Item key={el.id} producto={el}/>
                     )
                 })
-            };
+            }
             </div>
         </div>
     );
