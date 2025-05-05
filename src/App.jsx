@@ -3,19 +3,22 @@ import './App.css';
 import ItemListContainer from './components/ItemListcontainer/ItemListContainer';
 import Navbar from './components/Navbar/Navbar';
 import ItemDetail from './components/ItemDetail/ItemDetail';
+import { ContextProvider } from './context/context';
 
 function App() {
 
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<ItemListContainer />}/>
-        <Route path="/categoria/:categoria" element={<ItemListContainer />}/>
-        <Route path="/detalle/:id" element={<ItemDetail />}/>
-        <Route path="*" element={<p>Error al buscar la direccion</p>}/>
-      </Routes>
-    </BrowserRouter>
+    <ContextProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<ItemListContainer />}/>
+          <Route path="/categoria/:categoria" element={<ItemListContainer />}/>
+          <Route path="/detalle/:id" element={<ItemDetail />}/>
+          <Route path="*" element={<p>Error al buscar la direccion</p>}/>
+        </Routes>
+      </BrowserRouter>
+    </ContextProvider>
   );
 };
 
