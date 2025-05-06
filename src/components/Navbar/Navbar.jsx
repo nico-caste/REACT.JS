@@ -1,9 +1,8 @@
 import { Link } from 'react-router';
-import CartWidget from '../CartWidget/CartWidget';
 import './Navbar.css';
+import CartDetail from '../CartDetail/CartDetail';
 
 function Navbar() {
-
   return (
     <header>
         <nav>
@@ -12,8 +11,7 @@ function Navbar() {
                 <Link to="/">
                   <li><strong>Inico</strong></li>
                 </Link>
-
-                <CartWidget />
+                <CartDetail />
             </ul>
         </nav>
         <nav className="navbar-cat">
@@ -43,4 +41,4 @@ function Navbar() {
   );
 };
 
-export default Navbar
+export default Navbar;

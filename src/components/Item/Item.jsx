@@ -6,14 +6,6 @@ function Item ({producto}) {
     const {id,nombre,stock} = producto;
     const {agregarACarrito} = useAppContext();
 
-    // function agregarACarrito (prod){
-    //     const nuevoProd = {
-    //         ...prod,
-    //         cantidad: 1,
-    //     };
-    //     console.log("Estas agregando",nuevoProd)
-    // };
-
     return (
         <div className="card">
         <h3 className="card-head">{nombre}</h3>

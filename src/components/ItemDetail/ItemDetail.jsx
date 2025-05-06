@@ -12,16 +12,6 @@ function ItemDetail () {
     const [producto,setProducto] = useState(null);
     const [contador,setContador] = useState(1);
     const {agregarACarrito} = useAppContext();
-    
-
-    // function agregarACarrito (prod){
-    //     // const nuevoProd = {
-    //     //     ...prod,
-    //     //     cantidad: contador,
-    //     // };
-    //     console.log("vas a agregar",{...prod, cantidad: contador})
-    //     setContador(1)
-    // };
 
     useEffect (()=> {
         fetchdata(false)
@@ -30,11 +20,10 @@ function ItemDetail () {
             setProducto(prodAMostrar)
             setTimeout(() => {
                 setLoading(false);
-            }, 500);
+            }, 300);
         })
         .catch(err => console.log(err))
     },[]);
-
     return (
         loading ? <Loader /> :
         <div className="card">

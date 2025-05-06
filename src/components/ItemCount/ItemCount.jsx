@@ -1,7 +1,6 @@
 import './itemCount.css';
 
 function ItemCount ({stock,contador,setContador}) {
-
     function modificarContador (operacion) {
         if (operacion === "+") {
             if (contador < stock) {
@@ -20,8 +19,7 @@ function ItemCount ({stock,contador,setContador}) {
             <div className="btn btn-secondary"onClick={()=> modificarContador("+")}>+</div>
         </div>
 
-    )
-
+    );
 };
 
 export default ItemCount;
