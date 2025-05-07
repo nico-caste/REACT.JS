@@ -4,12 +4,17 @@ import './CartDetail.css';
 
 function CartDetail() {
     const { cart, removeFromCart, updateQuantity } = useAppContext();
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const quantityChange = (id, newQuantity) => {
+    const totalARS = cart.reduce((sum, item) => sum + (item.precioARS * item.cantidad), 0);
+    const totalUSD = cart.reduce((sum, item) => sum + (item.precioUSD * item.cantidad), 0);
+    
+    const handleQuantityChange = (id, oldQuantity, newQuantity) => {
         if (newQuantity > 0) {
-            updateQuantity(id, newQuantity);
+            updateQuantity(id, oldQuantity, newQuantity);
+        } else {
+            removeFromCart(id, oldQuantity);
         }
     };
+
     return (
         <div className="cart-page">
             <h1>Tu Carrito</h1>
@@ -25,37 +30,40 @@ function CartDetail() {
                     <div className="cart-items">
                         {cart.map(item => (
                             <div key={item.id} className="cart-item">
-                                <img src={item.image} alt={item.name} />
+                                <img src={item.image} alt={item.nombre} />
                                 <div className="item-details">
-                                    <h3>{item.name}</h3>
-                                    <p>Precio unitario: ${item.price.toFixed(2)}</p>
+                                    <h3>{item.nombre}</h3>
+                                    <p>Precio unitario: ${item.precioARS.toFixed(2)} / U${item.precioUSD}</p>
                                     <div className="quantity-control">
                                         <button 
-                                            onClick={() => quantityChange(item.id, item.quantity - 1)}
-                                            disabled={item.quantity <= 1}
+                                            onClick={() => handleQuantityChange(item.id, item.cantidad, item.cantidad - 1)}
+                                            disabled={item.cantidad <= 1}
                                         >
                                             -
                                         </button>
-                                        <span>{item.quantity}</span>
-                                        <button onClick={() => quantityChange(item.id, item.quantity + 1)}>
+                                        <span>{item.cantidad}</span>
+                                        <button 
+                                            onClick={() => handleQuantityChange(item.id, item.cantidad, item.cantidad + 1)}
+                                            disabled={item.cantidad >= item.stock} // Usar stock original del producto
+                                        >
                                             +
                                         </button>
                                     </div>
-                                    <p>Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
+                                    <p>Subtotal: ${(item.precioARS * item.cantidad).toFixed(2)} / U${(item.precioUSD * item.cantidad).toFixed(2)}</p>
                                 </div>
                                 <button 
-                                    onClick={() => removeFromCart(item.id)}
+                                    onClick={() => removeFromCart(item.id, item.cantidad)}
                                     className="remove-item"
-                                    aria-label={`Eliminar ${item.name} del carrito`}
+                                    aria-label={`Eliminar ${item.nombre} del carrito`}
                                 >
                                     ×
                                 </button>
                             </div>
-                        ))};
+                        ))}
                     </div>
                     <div className="cart-summary">
                         <h2>Resumen</h2>
-                        <p>Total: ${total.toFixed(2)}</p>
+                        <p>Total: ${totalARS.toFixed(2)} / U${totalUSD.toFixed(2)}</p>
                         <button className="checkout-button">
                             Proceder al pago
                         </button>
@@ -64,9 +72,9 @@ function CartDetail() {
                         </Link>
                     </div>
                 </>
-            )};
+            )}
         </div>
-    );
-};
+    )
+}
 
 export default CartDetail;

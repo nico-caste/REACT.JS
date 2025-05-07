@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
-import { ContextProvider } from './context/context';
 import './App.css';
 import ItemListContainer from './components/ItemListcontainer/ItemListContainer';
 import Navbar from './components/Navbar/Navbar';
 import ItemDetail from './components/ItemDetail/ItemDetail';
 import CartDetail from './components/CartDetail/CartDetail';
+import { AppProvider } from './context/context';
 
 function App() {
   return (
-    <ContextProvider>
+    <AppProvider>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -19,7 +19,7 @@ function App() {
           <Route path="*" element={<p>Error al buscar la direccion</p>}/>
         </Routes>
       </BrowserRouter>
-    </ContextProvider>
+    </AppProvider>
   );
 };
 

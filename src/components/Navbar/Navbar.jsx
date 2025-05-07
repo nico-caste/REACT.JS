@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import './Navbar.css';
-import CartDetail from '../CartDetail/CartDetail';
+import Cart from '../Cart/Cart';
 
 function Navbar() {
   return (
@@ -11,7 +11,9 @@ function Navbar() {
                 <Link to="/">
                   <li><strong>Inico</strong></li>
                 </Link>
-                <CartDetail />
+                <Link to="/cart">
+                <Cart />
+                </Link>
             </ul>
         </nav>
         <nav className="navbar-cat">

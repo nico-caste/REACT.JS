@@ -1,37 +1,97 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from 'react';
+import { fetchdata } from '../fetchdata';
 
-const AppContext = createContext ();
+const AppContext = createContext();
 
-export const useAppContext = () => useContext(AppContext);
+export function AppProvider({ children }) {
+    const [cart, setCart] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-export const ContextProvider = (props) => {
-    const [cart,setCart] = useState([]);
-
-    function agregarACarrito (prod, cantidad){
-        const nuevoProd = {
-            ...prod,
-            cantidad,
+    // Cargar productos al iniciar
+    useEffect(() => {
+        const loadProducts = async () => {
+            try {
+                const productos = await fetchdata();
+                setProducts(productos);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error loading products:", error);
+                setLoading(false);
+            }
         };
-        if (cart.some (el=> el.id === prod.id)) {
-            const newCart = cart.map (element => {
-                if (element.id === prod.id) {
-                    return {
-                        ...element,
-                        cantidad: element.cantidad + cantidad
-                    };
-                } else {
-                    return element;
-                };
-            })
-            setCart (newCart);
-        } else {
-            setCart ([...cart, nuevoProd]);
-        };
+        loadProducts();
+    }, []);
+
+    const addToCart = (producto, quantity = 1) => {
+        setCart(prevCart => {
+            const existingItem = prevCart.find(item => item.id === producto.id);
+            
+            if (existingItem) {
+                return prevCart.map(item =>
+                    item.id === producto.id 
+                        ? { ...item, cantidad: item.cantidad + quantity }
+                        : item
+                );
+            }
+            
+            return [...prevCart, { ...producto, cantidad: quantity }];
+        });
+
+        // Actualizar stock local
+        setProducts(prevProducts => 
+            prevProducts.map(item =>
+                item.id === producto.id
+                    ? { ...item, stock: item.stock - quantity }
+                    : item
+            )
+        );
     };
 
-    return(
-        <AppContext.Provider value={{cart, agregarACarrito}}>
-            {props.children}
+    const removeFromCart = (id, quantity) => {
+        setCart(prevCart => prevCart.filter(item => item.id !== id));
+        
+        // Restaurar stock si se elimina del carrito
+        setProducts(prevProducts => 
+            prevProducts.map(item =>
+                item.id === id
+                    ? { ...item, stock: item.stock + quantity }
+                    : item
+            )
+        );
+    };
+    
+    const updateQuantity = (id, oldQuantity, newQuantity) => {
+        setCart(prevCart =>
+            prevCart.map(item =>
+                item.id === id ? { ...item, cantidad: newQuantity } : item
+            )
+        );
+
+        // Ajustar stock según el cambio de cantidad
+        setProducts(prevProducts => 
+            prevProducts.map(item =>
+                item.id === id
+                    ? { ...item, stock: item.stock + (oldQuantity - newQuantity) }
+                    : item
+            )
+        );
+    };
+    
+    return (
+        <AppContext.Provider value={{ 
+            cart, 
+            products,
+            loading,
+            addToCart, 
+            removeFromCart, 
+            updateQuantity 
+        }}>
+            {children}
         </AppContext.Provider>
-    )
-};
+    );
+}
+
+export function useAppContext() {
+    return useContext(AppContext);
+}
