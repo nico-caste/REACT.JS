@@ -50,7 +50,7 @@ const OrdersDetail = () => {
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Estado</th>
+            <th>Estado de preparacion</th>
             <th>Fecha</th>
             <th>Productos</th>
             <th>Total ARS</th>
