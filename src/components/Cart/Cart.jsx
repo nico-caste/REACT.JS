@@ -7,10 +7,10 @@ function Cart() {
     const { cart = [] } = useAppContext();
     const navigate = useNavigate();
     const itemCount = cart.length;
-    
     const cartClick = () => {
         navigate('/cart');
     };
+
     return (
         <div 
             className={`cart-widget ${itemCount === 0 ? 'empty' : ''}`}

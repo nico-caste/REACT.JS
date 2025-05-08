@@ -9,10 +9,9 @@ function ItemDetail() {
     const { id } = useParams();
     const [contador, setContador] = useState(1);
     const { products, loading, addToCart } = useAppContext();
-    
     const producto = products.find(el => String(el.id) === String(id));
 
-    const controlAddToCart = () => {
+    const itemDetailAddToCart = () => {
         if (producto && producto.stock >= contador) {
             addToCart(producto, contador);
             setContador(1);
@@ -39,7 +38,7 @@ function ItemDetail() {
                                 />
                                 <button 
                                     className="btn btn-secondary" 
-                                    onClick={controlAddToCart}
+                                    onClick={itemDetailAddToCart}
                                     disabled={producto.stock === 0 || contador > producto.stock}
                                 >
                                     {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}

@@ -7,7 +7,6 @@ export function AppProvider({ children }) {
     const [cart, setCart] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-
     // Cargar productos al iniciar
     useEffect(() => {
         const loadProducts = async () => {
@@ -26,7 +25,6 @@ export function AppProvider({ children }) {
     const addToCart = (producto, quantity = 1) => {
         setCart(prevCart => {
             const existingItem = prevCart.find(item => item.id === producto.id);
-            
             if (existingItem) {
                 return prevCart.map(item =>
                     item.id === producto.id 
@@ -34,11 +32,9 @@ export function AppProvider({ children }) {
                         : item
                 );
             }
-            
             return [...prevCart, { ...producto, cantidad: quantity }];
         });
-
-        // Actualizar stock local
+        // Actualizar stock de la sesion
         setProducts(prevProducts => 
             prevProducts.map(item =>
                 item.id === producto.id
@@ -60,6 +56,10 @@ export function AppProvider({ children }) {
             )
         );
     };
+
+    const clearCart = () => {
+        setCart([]);
+      };    
     
     const updateQuantity = (id, oldQuantity, newQuantity) => {
         setCart(prevCart =>
@@ -67,8 +67,7 @@ export function AppProvider({ children }) {
                 item.id === id ? { ...item, cantidad: newQuantity } : item
             )
         );
-
-        // Ajustar stock según el cambio de cantidad
+        // Ajustar stock al cambio de cantidad
         setProducts(prevProducts => 
             prevProducts.map(item =>
                 item.id === id
@@ -85,13 +84,14 @@ export function AppProvider({ children }) {
             loading,
             addToCart, 
             removeFromCart, 
-            updateQuantity 
+            updateQuantity,
+            clearCart,
         }}>
             {children}
         </AppContext.Provider>
     );
-}
+};
 
 export function useAppContext() {
     return useContext(AppContext);
-}
+};

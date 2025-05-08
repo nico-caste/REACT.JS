@@ -1,17 +1,101 @@
 import { Link } from 'react-router';
 import { useAppContext } from '../../context/context';
 import './CartDetail.css';
+import Swal from 'sweetalert2';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 function CartDetail() {
-    const { cart, removeFromCart, updateQuantity } = useAppContext();
+    const { cart, removeFromCart, updateQuantity, clearCart } = useAppContext();
     const totalARS = cart.reduce((sum, item) => sum + (item.precioARS * item.cantidad), 0);
     const totalUSD = cart.reduce((sum, item) => sum + (item.precioUSD * item.cantidad), 0);
-    
+
     const handleQuantityChange = (id, oldQuantity, newQuantity) => {
         if (newQuantity > 0) {
             updateQuantity(id, oldQuantity, newQuantity);
         } else {
             removeFromCart(id, oldQuantity);
+        }
+    };
+
+    const handleCheckout = async () => {
+        const { value: formValues } = await Swal.fire({
+            title: 'Completá tus datos',
+            html:
+              '<input id="swal-input1" class="swal2-input" placeholder="Nombre" required>' +
+              '<input id="swal-input2" class="swal2-input" placeholder="Apellido" required>' +
+              '<input id="swal-input3" class="swal2-input" placeholder="Email" required>' +
+              '<input id="swal-input4" class="swal2-input" placeholder="Teléfono" required>',
+            focusConfirm: false,
+            preConfirm: () => {
+              // Validacion
+              const nombre = document.getElementById('swal-input1').value;
+              const apellido = document.getElementById('swal-input2').value;
+              const email = document.getElementById('swal-input3').value;
+              const telefono = document.getElementById('swal-input4').value;
+              if (!nombre || !apellido || !email || !telefono) {
+                Swal.showValidationMessage('Todos los campos son obligatorios');
+                return false;
+              }
+              if (!/^\S+@\S+\.\S+$/.test(email)) {
+                Swal.showValidationMessage('Ingrese un email válido');
+                return false;
+              }
+              return {
+                nombre,
+                apellido,
+                email,
+                telefono
+              };
+            },
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar',
+            allowOutsideClick: false
+          });
+        if (formValues) {
+            try {
+                // Crear objeto
+                const order = {
+                    cliente: {
+                        nombre: formValues.nombre,
+                        apellido: formValues.apellido,
+                        email: formValues.email,
+                        telefono: formValues.telefono
+                    },
+                    productos: cart.map(item => ({
+                        id: item.id,
+                        nombre: item.nombre,
+                        cantidad: item.cantidad,
+                        precioARS: item.precioARS,
+                        precioUSD: item.precioUSD
+                    })),
+                    totalARS,
+                    totalUSD,
+                    fecha: new Date().toISOString(),
+                    estado: 'pendiente'
+                };
+                // Guardar en Firebase
+                const ordenesCollection = collection(db, 'ordenes');
+                const docRef = await addDoc(ordenesCollection, order);
+                // Vonfirmacion
+                Swal.fire({
+                    title: '¡Orden generada!',
+                    text: `Tu orden con ID ${docRef.id} ha sido creada correctamente`,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+                // Limpiar carrito despues de generar la orden
+                clearCart();
+            } catch (error) {
+                console.error('Error al generar la orden:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al generar tu orden. Por favor intentá nuevamente.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
         }
     };
 
@@ -44,7 +128,7 @@ function CartDetail() {
                                         <span>{item.cantidad}</span>
                                         <button 
                                             onClick={() => handleQuantityChange(item.id, item.cantidad, item.cantidad + 1)}
-                                            disabled={item.cantidad >= item.stock} // Usar stock original del producto
+                                            disabled={item.cantidad >= item.stock}
                                         >
                                             +
                                         </button>
@@ -64,8 +148,11 @@ function CartDetail() {
                     <div className="cart-summary">
                         <h2>Resumen</h2>
                         <p>Total: ${totalARS.toFixed(2)} / U${totalUSD.toFixed(2)}</p>
-                        <button className="checkout-button">
-                            Proceder al pago
+                        <button 
+                            className="checkout-button"
+                            onClick={handleCheckout}
+                        >
+                            Generar orden de pedido
                         </button>
                         <Link to="/" className="continue-shopping">
                             Seguir comprando
@@ -75,6 +162,6 @@ function CartDetail() {
             )}
         </div>
     )
-}
+};
 
 export default CartDetail;

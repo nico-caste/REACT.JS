@@ -27,6 +27,6 @@ function ItemListContainer() {
             </div>
         </div>
     );
-}
+};
 
 export default ItemListContainer;

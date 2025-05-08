@@ -7,8 +7,8 @@ function Item({ producto }) {
     const { id, nombre, stock, precioARS, precioUSD } = producto;
     const { addToCart } = useAppContext();
     const [currentStock, setCurrentStock] = useState(stock);
-
-    const controlAddToCart = () => {
+    // Agrgar al carrito desde Item
+    const itemAddToCart = () => {
         if (currentStock > 0) {
             addToCart(producto, 1);
             setCurrentStock(prevStock => prevStock - 1);
@@ -22,7 +22,7 @@ function Item({ producto }) {
             <p className="">{currentStock} unidades disponibles</p>
             <button 
                 className="btn btn-secondary" 
-                onClick={controlAddToCart}
+                onClick={itemAddToCart}
                 disabled={currentStock === 0}
             >
                 {currentStock === 0 ? 'Sin stock' : 'Agregar al carrito'}
