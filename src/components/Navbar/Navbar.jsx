@@ -1,15 +1,19 @@
 import { Link } from 'react-router';
 import './Navbar.css';
 import Cart from '../Cart/Cart';
+import { FaHome } from "react-icons/fa";
+import { CgListTree } from "react-icons/cg";
 
 function Navbar() {
   return (
     <header>
         <nav>
             <ul className="nav-bar-items">
-                <p>LOGO</p>
+                <Link to="/ordenes">
+                <CgListTree />
+                </Link>
                 <Link to="/">
-                  <li><strong>Inico</strong></li>
+                  <FaHome />
                 </Link>
                 <Link to="/cart">
                 <Cart />

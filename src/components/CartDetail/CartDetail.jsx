@@ -22,18 +22,16 @@ function CartDetail() {
         const { value: formValues } = await Swal.fire({
             title: 'Completá tus datos',
             html:
-              '<input id="swal-input1" class="swal2-input" placeholder="Nombre" required>' +
-              '<input id="swal-input2" class="swal2-input" placeholder="Apellido" required>' +
-              '<input id="swal-input3" class="swal2-input" placeholder="Email" required>' +
-              '<input id="swal-input4" class="swal2-input" placeholder="Teléfono" required>',
+              '<input id="swal-input1" class="swal2-input" placeholder="Nombre Completo" required>' +
+              '<input id="swal-input2" class="swal2-input" placeholder="Email" required>' +
+              '<input id="swal-input3" class="swal2-input" placeholder="Teléfono" required>',
             focusConfirm: false,
             preConfirm: () => {
               // Validacion
               const nombre = document.getElementById('swal-input1').value;
-              const apellido = document.getElementById('swal-input2').value;
-              const email = document.getElementById('swal-input3').value;
-              const telefono = document.getElementById('swal-input4').value;
-              if (!nombre || !apellido || !email || !telefono) {
+              const email = document.getElementById('swal-input2').value;
+              const telefono = document.getElementById('swal-input3').value;
+              if (!nombre || !email || !telefono) {
                 Swal.showValidationMessage('Todos los campos son obligatorios');
                 return false;
               }
@@ -43,7 +41,6 @@ function CartDetail() {
               }
               return {
                 nombre,
-                apellido,
                 email,
                 telefono
               };
@@ -59,7 +56,6 @@ function CartDetail() {
                 const order = {
                     cliente: {
                         nombre: formValues.nombre,
-                        apellido: formValues.apellido,
                         email: formValues.email,
                         telefono: formValues.telefono
                     },

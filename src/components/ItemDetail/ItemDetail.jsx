@@ -4,6 +4,7 @@ import ItemCount from '../ItemCount/ItemCount';
 import './ItemDetail.css';
 import { useState } from 'react';
 import { useAppContext } from '../../context/context';
+import Swal from 'sweetalert2';
 
 function ItemDetail() {
     const { id } = useParams();
@@ -15,6 +16,16 @@ function ItemDetail() {
         if (producto && producto.stock >= contador) {
             addToCart(producto, contador);
             setContador(1);
+            Swal.fire({
+                title: '¡Producto agregado!',
+                text: `Se ha añadido al carrito ${contador} ${producto.nombre} `,
+                icon: 'success',
+                timer: 3000,
+                timerProgressBar: true,
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false
+            });
         }
     };
 

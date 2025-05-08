@@ -10,7 +10,7 @@ export const fetchdata = async () => {
       }));
       return productos;
     } catch (err) {
-      console.error("Error fetching products: ", err);
+      console.error("Error al cargar productos: ", err);
       throw err;
     }
   };

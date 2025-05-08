@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { fetchdata } from '../fetchdata';
+import Swal from 'sweetalert2';
 
 const AppContext = createContext();
 
@@ -44,8 +45,18 @@ export function AppProvider({ children }) {
         );
     };
 
-    const removeFromCart = (id, quantity) => {
+    const removeFromCart = (id, quantity,) => {
         setCart(prevCart => prevCart.filter(item => item.id !== id));
+        Swal.fire({
+            title: '¡Producto eliminado!',
+            text: `Has eliminado un producto del carrito`,
+            icon: 'warning',
+            timer: 2500,
+            timerProgressBar: true,
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false
+        });
         
         // Restaurar stock si se elimina del carrito
         setProducts(prevProducts => 

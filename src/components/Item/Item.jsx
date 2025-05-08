@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { useAppContext  } from '../../context/context';
 import { useState } from 'react';
 import './Item.css';
+import Swal from 'sweetalert2';
 
 function Item({ producto }) {
     const { id, nombre, stock, precioARS, precioUSD } = producto;
@@ -12,6 +13,16 @@ function Item({ producto }) {
         if (currentStock > 0) {
             addToCart(producto, 1);
             setCurrentStock(prevStock => prevStock - 1);
+            Swal.fire({
+                title: '¡Producto agregado!',
+                text: `Se ha añadido al carrito 1 ${nombre} `,
+                icon: 'success',
+                timer: 3000,
+                timerProgressBar: true,
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false
+            });
         }
     };
 
