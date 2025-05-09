@@ -29,8 +29,11 @@ function Item({ producto }) {
     return (
         <div className="card">
             <h3 className="card-head">{nombre}</h3>
-            <h5>${precioARS} / U${precioUSD}</h5>
+            <h5>${precioARS} ( U${precioUSD} )</h5>
             <p className="">{currentStock} unidades disponibles</p>
+            <Link to={`/detalle/${id}`}>
+                <button className="btn btn-secondary">Ver detalle</button>
+            </Link>
             <button 
                 className="btn btn-secondary" 
                 onClick={itemAddToCart}
@@ -38,9 +41,6 @@ function Item({ producto }) {
             >
                 {currentStock === 0 ? 'Sin stock' : 'Agregar al carrito'}
             </button>
-            <Link to={`/detalle/${id}`}>
-                <button className="btn btn-secondary">Ver detalle</button>
-            </Link>
         </div>
     );
 };

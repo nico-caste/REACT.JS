@@ -1,4 +1,11 @@
-
 .card {
+    justify-content: space-between;
+    height: 250px;
     padding: 10px;
+    background-color: #1e2138;
+    color: aliceblue;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    a {
+        align-self: center;
+    }
 }

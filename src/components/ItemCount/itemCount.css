@@ -1,5 +1,12 @@
 .contador-cont {
     display: flex;
     justify-content: space-evenly;
-    width: 100px;
+    align-items: center;
+    width: 100%;
+    div {
+        width: auto;
+    }
+    p {
+        margin: 0;
+    }
 }

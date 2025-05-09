@@ -16,7 +16,7 @@ function ItemCount ({stock,contador,setContador}) {
     return (
         <div className="contador-cont">
             <div className="btn btn-secondary"onClick={()=> modificarContador("-")}>-</div>
-            <p>{contador}</p>
+            <p><strong>{contador}</strong></p>
             <div className="btn btn-secondary"onClick={()=> modificarContador("+")}>+</div>
         </div>
 

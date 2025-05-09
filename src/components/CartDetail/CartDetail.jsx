@@ -110,49 +110,51 @@ function CartDetail() {
                     <div className="cart-items">
                         {cart.map(item => (
                             <div key={item.id} className="cart-item">
-                                <img src={item.image} alt={item.nombre} />
+                                <img src={item.image}/>
                                 <div className="item-details">
-                                    <h3>{item.nombre}</h3>
-                                    <p>Precio unitario: ${item.precioARS.toFixed(2)} / U${item.precioUSD}</p>
-                                    <div className="quantity-control">
-                                        <button 
-                                            onClick={() => handleQuantityChange(item.id, item.cantidad, item.cantidad - 1)}
-                                            disabled={item.cantidad <= 1}
-                                        >
-                                            -
-                                        </button>
-                                        <span>{item.cantidad}</span>
-                                        <button 
-                                            onClick={() => handleQuantityChange(item.id, item.cantidad, item.cantidad + 1)}
-                                            disabled={item.cantidad >= item.stock}
-                                        >
-                                            +
-                                        </button>
+                                    <div>
+                                        <h3>{item.nombre}</h3>
+                                        <p>Precio unitario: ${item.precioARS.toFixed(2)} ( U${item.precioUSD} )</p>
                                     </div>
-                                    <p>Subtotal: ${(item.precioARS * item.cantidad).toFixed(2)} / U${(item.precioUSD * item.cantidad).toFixed(2)}</p>
+                                    <div className="item-count">
+                                        <div>
+                                            <button className="btn btn-secondary"
+                                                onClick={() => handleQuantityChange(item.id, item.cantidad, item.cantidad - 1)}
+                                                disabled={item.cantidad <= 1}
+                                                >
+                                                -
+                                            </button>
+                                            <span>{item.cantidad}</span>
+                                            <button className="btn btn-secondary"
+                                                onClick={() => handleQuantityChange(item.id, item.cantidad, item.cantidad + 1)}
+                                                disabled={item.cantidad >= item.stock}
+                                                >
+                                                +
+                                            </button>
+                                        </div>
+                                        <p>Subtotal: ${(item.precioARS * item.cantidad).toFixed(2)} ( U${(item.precioUSD * item.cantidad).toFixed(2)} )</p>
+                                    </div>
                                 </div>
-                                <button 
+                                <button className="btn btn-secondary"
                                     onClick={() => removeFromCart(item.id, item.cantidad)}
-                                    className="remove-item"
-                                    aria-label={`Eliminar ${item.nombre} del carrito`}
-                                >
-                                    ×
+                                    aria-label={`Eliminar ${item.nombre} del carrito`}>
+                                    <p><strong>Remover item</strong></p>
                                 </button>
                             </div>
                         ))}
                     </div>
                     <div className="cart-summary">
                         <h2>Resumen</h2>
-                        <p>Total: ${totalARS.toFixed(2)} / U${totalUSD.toFixed(2)}</p>
-                        <button 
-                            className="checkout-button"
-                            onClick={handleCheckout}
-                        >
-                            Generar orden de pedido
-                        </button>
-                        <Link to="/" className="continue-shopping">
-                            Seguir comprando
-                        </Link>
+                        <div>
+                            <p>Total: ${totalARS.toFixed(2)} ( U${totalUSD.toFixed(2)} )</p>
+                            <button className="btn btn-secondary"
+                                onClick={handleCheckout}>
+                                Generar orden de pedido
+                            </button>
+                            <Link to="/" className="btn btn-secondary">
+                                Seguir comprando
+                            </Link>
+                        </div>
                     </div>
                 </>
             )}

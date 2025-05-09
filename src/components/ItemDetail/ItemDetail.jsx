@@ -31,16 +31,17 @@ function ItemDetail() {
 
     return (
         loading ? <Loader /> :
-            <div className="card">
+            <div className="card-detail">
                 {
                     producto ?
                         <>
-                            <p>{producto.nombre}</p>
-                            <h3 className="card-head">{producto.nombre}</h3>
-                            <h4 className="">{producto.marca}</h4>
-                            <div className="card-body">
+                            <div className="card-detail-head">
+                                <h3>{producto.nombre}</h3>
+                                <h4>{producto.marca}</h4>
+                                <p>{producto.descripcion} ({producto.categoria})</p>
+                            </div>
+                            <div className="card-detail-count">
                                 <h5 className="">Precio: ${producto.precioARS} / U${producto.precioUSD}</h5>
-                                <p className="">{producto.descripcion} ({producto.categoria})</p>
                                 <p className="">{producto.stock} unidades disponibles</p>
                                 <ItemCount 
                                     stock={producto.stock} 
@@ -50,11 +51,11 @@ function ItemDetail() {
                                 <button 
                                     className="btn btn-secondary" 
                                     onClick={itemDetailAddToCart}
-                                    disabled={producto.stock === 0 || contador > producto.stock}
-                                >
+                                    disabled={producto.stock === 0 || contador > producto.stock}>
                                     {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
                                 </button>
-                                <br />
+                            </div>
+                            <div className="card-detail-btns">
                                 <Link to="/">
                                     <button className="btn btn-secondary">Volver al inicio</button>
                                 </Link>

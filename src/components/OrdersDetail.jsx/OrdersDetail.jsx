@@ -53,8 +53,7 @@ const OrdersDetail = () => {
             <th>Estado del pedido</th>
             <th>Fecha</th>
             <th>Productos</th>
-            <th>Total ARS</th>
-            <th>Total USD</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +67,7 @@ const OrdersDetail = () => {
                   <ul>
                     {order.productos.map((producto, index) => (
                       <li key={index}>
-                        {producto.nombre} x {producto.cantidad}
+                        {producto.nombre} = ${producto.precioARS} ( U${producto.precioUSD} ) x {producto.cantidad}
                       </li>
                     ))}
                   </ul>
@@ -76,8 +75,7 @@ const OrdersDetail = () => {
                   "N/A"
                 )}
               </td>
-              <td>{order.totalARS ? `$${order.totalARS}` : "N/A"}</td>
-              <td>{order.totalUSD ? `$${order.totalUSD}` : "N/A"}</td>
+              <td>{order.totalARS ? `$${order.totalARS}` : "N/A"} ( {order.totalUSD ? `U$${order.totalUSD}` : "N/A"} )</td>
             </tr>
           ))}
         </tbody>

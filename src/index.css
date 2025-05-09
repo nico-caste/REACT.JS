@@ -8,3 +8,13 @@ body {
   background-color: #292e4f;
   color: aliceblue;
 }
+
+.btn-secondary {
+  align-self: center;
+  background-color: #1e2138;
+  border: none;
+  border-color: #292e4f;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  border-style: outset;
+  width: 200px;
+}
