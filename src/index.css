@@ -18,3 +18,9 @@ body {
   border-style: outset;
   width: 200px;
 }
+
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 15px;
+}

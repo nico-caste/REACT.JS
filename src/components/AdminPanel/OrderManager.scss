@@ -1,0 +1,51 @@
+.orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+.order-card {
+    background-color: #1e2138;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #aeb8ff;
+    h4 {
+        word-break: break-all;
+        margin-bottom: 10px;
+    }
+}
+.order-status-selector {
+    margin-top: 15px;
+    select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #4a5180;
+        background-color: #292e4f;
+        color: white;
+    }
+}
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #292e4f;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    h4 {
+        margin-bottom: 0;
+    }
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #ff5c5c;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: #ff5c5c20;
+    }
+}

@@ -2,11 +2,12 @@
   position: relative;
   display: flex;
   align-items: center;
+  align-content: center;
   justify-content: center;
+  justify-items: center;
   width: 100%;
   max-width: 6rem;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin: 3rem auto;
 }
 .loader:before,
 .loader:after {

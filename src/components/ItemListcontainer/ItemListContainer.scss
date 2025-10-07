@@ -1,0 +1,14 @@
+.productos-cont {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+    margin-bottom: 40px;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

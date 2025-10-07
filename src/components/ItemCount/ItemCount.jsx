@@ -1,4 +1,4 @@
-import './itemCount.css';
+import './itemCount.scss';
 
 function ItemCount ({stock,contador,setContador}) {
     function modificarContador (operacion) {

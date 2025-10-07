@@ -1,12 +1,13 @@
 import { FaCartPlus } from 'react-icons/fa';
 import { useAppContext } from '../../context/context.jsx';
-import { useNavigate } from 'react-router';
-import './Cart.css';
+import { useNavigate } from 'react-router-dom';
+import './Cart.scss';
 
 function Cart() {
     const { cart = [] } = useAppContext();
     const navigate = useNavigate();
-    const itemCount = cart.length;
+    const itemCount = cart.reduce((total, item) => total + item.cantidad, 0);
+    
     const cartClick = () => {
         navigate('/cart');
     };
@@ -26,7 +27,7 @@ function Cart() {
                 </span>
             )}
         </div>
-    )
+    );
 };
 
 export default Cart;

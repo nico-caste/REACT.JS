@@ -1,0 +1,57 @@
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+    gap: 15px;
+
+    @media (min-width: 768px) {
+        margin: 0 20px;
+    }
+}
+
+.orders-table {
+    @media (max-width: 767px) {
+        thead {
+            display: none;
+        }
+
+        tr {
+            display: block;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+            background-color: #1e2138;
+        }
+
+        td {
+            display: block;
+            text-align: right;
+            padding: 10px 20px;
+            position: relative;
+            border-bottom: 1px solid #292e4f;
+
+            &::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 20px;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        border-spacing: 10px 15px;
+        border-collapse: separate;
+        margin-bottom: 40px;
+        thead tr {
+            text-align: center;
+        }
+        tbody tr td {
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: #1e2138;
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+        }
+    }
+}

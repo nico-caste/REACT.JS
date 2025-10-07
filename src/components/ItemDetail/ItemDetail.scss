@@ -1,14 +1,20 @@
-.card-detail{
+.card-detail {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    padding: 10px;
+    padding: 15px;
     margin: 10px;
     border-radius: 10px;
     background-color: #1e2138;
-    color: aliceblue;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: left;
+    }
 }
 .card-detail-btns {
     display: flex;

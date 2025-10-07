@@ -1,23 +1,7 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
-import "./OrdersDetail.css";
+import { getOrders } from "../../services/firebaseServices";
+import "./OrdersDetail.scss";
 import Loader from "../Loader/Loader";
-
-// Función para obtener ordenes
-export const fetchOrders = async () => {
-  try {
-    const querySnapshot = await getDocs(collection(db, "ordenes"));
-    const ordenes = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-    return ordenes;
-  } catch (err) {
-    console.error("Error al cargar ordenes: ", err);
-    throw err;
-  }
-};
 
 const OrdersDetail = () => {
   const [orders, setOrders] = useState([]);
@@ -27,7 +11,7 @@ const OrdersDetail = () => {
   useEffect(() => {
     const loadOrders = async () => {
       try {
-        const ordenes = await fetchOrders();
+        const ordenes = await getOrders();
         setOrders(ordenes);
       } catch (err) {
         setError(err.message);
@@ -59,10 +43,10 @@ const OrdersDetail = () => {
         <tbody>
           {orders.map((order) => (
             <tr key={order.id}>
-              <td>{order.cliente.nombre || "N/A"}</td>
-              <td>{order.estado || "N/A"}</td>
-              <td>{order.fecha || "N/A"}</td>
-              <td>
+              <td data-label="Nombre">{order.cliente.nombre || "N/A"}</td>
+              <td data-label="Estado">{order.estado || "N/A"}</td>
+              <td data-label="Fecha">{order.fecha || "N/A"}</td>
+              <td data-label="Productos">
                 {order.productos ? (
                   <ul>
                     {order.productos.map((producto, index) => (
@@ -75,7 +59,7 @@ const OrdersDetail = () => {
                   "N/A"
                 )}
               </td>
-              <td>{order.totalARS ? `$${order.totalARS}` : "N/A"} ( {order.totalUSD ? `U$${order.totalUSD}` : "N/A"} )</td>
+              <td data-label="Total">{order.totalARS ? `$${order.totalARS}` : "N/A"} ( {order.totalUSD ? `U$${order.totalUSD}` : "N/A"} )</td>
             </tr>
           ))}
         </tbody>

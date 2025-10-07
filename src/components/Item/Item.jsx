@@ -1,24 +1,23 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useAppContext  } from '../../context/context';
-import { useState } from 'react';
-import './Item.css';
+import './Item.scss';
 import Swal from 'sweetalert2';
 
 function Item({ producto }) {
     const { id, nombre, stock, precioARS, precioUSD } = producto;
-    const { addToCart } = useAppContext();
-    const [currentStock, setCurrentStock] = useState(stock);
-    // Agrgar al carrito desde Item
+    const { addToCart, cart } = useAppContext();
+
+    const itemInCart = cart.find(item => item.id === id);
+    const quantityInCart = itemInCart ? itemInCart.cantidad : 0;
+
     const itemAddToCart = () => {
-        if (currentStock > 0) {
+        if (quantityInCart < stock) {
             addToCart(producto, 1);
-            setCurrentStock(prevStock => prevStock - 1);
             Swal.fire({
                 title: '¡Producto agregado!',
-                text: `Se ha añadido al carrito 1 ${nombre} `,
+                text: `Se ha añadido 1 ${nombre} al carrito`,
                 icon: 'success',
-                timer: 3000,
-                timerProgressBar: true,
+                timer: 2000,
                 toast: true,
                 position: 'bottom-end',
                 showConfirmButton: false
@@ -26,20 +25,24 @@ function Item({ producto }) {
         }
     };
 
+    const isButtonDisabled = stock === 0 || quantityInCart >= stock;
+
     return (
         <div className="card">
-            <h3 className="card-head">{nombre}</h3>
+            <Link to={`/detalle/${id}`}>
+                <h3 className="card-head">{nombre}</h3>
+            </Link>
             <h5>${precioARS} ( U${precioUSD} )</h5>
-            <p className="">{currentStock} unidades disponibles</p>
+            <p className="">{stock} unidades disponibles</p>
             <Link to={`/detalle/${id}`}>
                 <button className="btn btn-secondary">Ver detalle</button>
             </Link>
-            <button 
-                className="btn btn-secondary" 
+            <button
+                className="btn btn-secondary"
                 onClick={itemAddToCart}
-                disabled={currentStock === 0}
+                disabled={isButtonDisabled}
             >
-                {currentStock === 0 ? 'Sin stock' : 'Agregar al carrito'}
+                {stock === 0 ? 'Sin stock' : (quantityInCart >= stock ? 'Sin stock' : 'Agregar al carrito')}
             </button>
         </div>
     );

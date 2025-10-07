@@ -1,0 +1,19 @@
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    
+    input, select, textarea {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #4a5180;
+        background-color: #1e2138;
+        color: white;
+        font-size: 1rem;
+    }
+
+    textarea {
+        min-height: 100px;
+    }
+}
