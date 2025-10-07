@@ -1,58 +1,26 @@
+# E-commerce con React y Firebase
 
-# Projecto React Js - Coderhouse
-## Entrega final
-### Castellanos Nicolas
-#### Esta es una app de e-comerce desarrollada con react JS - vite y utilizando como base de datos Firebase/Firestore.### En esta demo permite:
-✅ Explorar productos por categorías
+Una aplicación de comercio electrónico funcional construida con React, Vite y Firebase. El proyecto simula una experiencia de compra completa, desde la exploración del catálogo hasta la generación de órdenes, e incluye un panel de administración para la gestión de productos y pedidos.
 
-✅ Ver detalles de cada producto como cantidad en stock, descripcion y costos
+### [Ver Demo](https://react-js-coder-git-master-nicolas-projects-1433c515.vercel.app/)
 
-✅ Agregar al carrito y gestionar cantidades
+## Características Principales
 
-✅ Simular compra (sin pasarela de pago real)
-### Caracteristicas principales:
-* #### Catalogo dinamico:
-Los productos se cargan desde Firebase Firestore
-* #### Carrito persistente:
-Manejo de estado con React Context
-* #### Filtrado por categorías:
-Navegacion con React Router
-### Como funciona
-#### 1. Carga de productos
-Se obtienen desde Firebase Firestore al iniciar la app.
+* **Carrito de Compras Completo:** Añade, elimina y modifica la cantidad de productos con validación de stock en tiempo real.
+* **Catálogo de Productos Dinámico:** Los productos se cargan desde Firebase Firestore y se pueden filtrar por categoría y marca.
+* **Panel de Administración (`/admin`):**
+    * **Gestión de Productos:** Formulario para agregar nuevos productos a la base de datos con categorías y marcas que se sugieren dinámicamente.
+    * **Gestión de Órdenes:** Visualiza todas las órdenes de compra, actualiza su estado (en preparación, enviado, etc.) y elimina órdenes.
+* **Notificaciones por Email:** Integración con EmailJS para notificar automáticamente a los clientes cuando el estado de su orden es actualizado por un administrador.
+* **Diseño Totalmente Responsivo:** La interfaz se adapta fluidamente a dispositivos móviles, tablets y de escritorio.
+* **Navegacion intuitiva:** Se implemento una navegacion fluida para el usuario, que permite una experiencia de usuario mas confortable**
+## Tecnologías Utilizadas
 
-Se almacenan en el Contexto Global para evitar multiples llamadas.
+* **Front-End:** React.js, Vite, Sass
+* **Enrutamiento:** React Router DOM
+* **Base de Datos:** Firebase / Firestore
+* **Notificaciones:** SweetAlert2
+* **Mailing:** EmailJS
+* **Iconos:** React Icons
 
-#### 2. Gestion del carrito
-Agregar productos: Controla el stock disponible.
-
-Modificar cantidades: Actualiza el total en tiempo real.
-
-Eliminar productos: Restaura el stock.
-
-#### 3. Navegacion
-Home: Muestra todos los productos.
-
-/categoria/:categoria : Filtra por categoría.
-
-/detalle/:id : Muestra detalles + selector de cantidad.
-
-/cart : Muestra productos en el carrito permitiendo controlar su stock modificando dinamicamente el total y subtotal
-
-## Demo
-
-https://react-js-coder-git-master-nicolas-projects-1433c515.vercel.app
-
-
-## Environment Variables
-
-Este proyecto requiere las siguientes certificaciones:
-
-VITE_API_KEY=AIzaSyDYlGI1IXUVoIDbeWoA2oCWdyfQDBCU5Es
-VITE_AUTH_DOMAIN=proyecto-react-coder-69527.firebaseapp.com
-VITE_PROJECT_ID=proyecto-react-coder-69527
-VITE_STORAGE_BUCKET=proyecto-react-coder-69527.firebasestorage.app
-VITE_MESSAGING_SENDER_ID=998130211939
-VITE_APP_ID=1:998130211939:web:ba5af589aaa75b58cbac56
-VITE_MEASUREMENT_ID=G-T5F7E6KBE6
-
+---
